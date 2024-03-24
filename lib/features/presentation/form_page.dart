@@ -6,7 +6,6 @@ import 'package:form_with_cubit/features/presentation/widgets/common_form_field.
 const emailLabel = 'Email*';
 const passwordLabel = 'Password*';
 const ageLabel = 'Age*';
-const levelLabel = 'Level';
 const buttonText = 'Save';
 
 class FormPage extends StatelessWidget {
