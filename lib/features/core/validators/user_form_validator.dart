@@ -27,12 +27,4 @@ mixin UserFormValidator {
     }
     return CommonValidatorErrorMessages.ageErrorMessage;
   }
-
-  String? validateLevel(String ageString) {
-    int? age = int.tryParse(ageString);
-    if (age != null ||ageString.isEmpty) {
-      return null;
-    }
-    return CommonValidatorErrorMessages.levelErrorMessage;
-  }
 }
