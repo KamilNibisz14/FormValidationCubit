@@ -16,28 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserFormState {
-  FormEntity<String> get email => throw _privateConstructorUsedError;
-  FormEntity<String> get password => throw _privateConstructorUsedError;
-  FormEntity<int> get age => throw _privateConstructorUsedError;
+  Map<String, FormEntity> get form => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FormEntity<String> email,
-            FormEntity<String> password, FormEntity<int> age)
-        content,
+    required TResult Function(Map<String, FormEntity> form) content,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FormEntity<String> email, FormEntity<String> password,
-            FormEntity<int> age)?
-        content,
+    TResult? Function(Map<String, FormEntity> form)? content,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FormEntity<String> email, FormEntity<String> password,
-            FormEntity<int> age)?
-        content,
+    TResult Function(Map<String, FormEntity> form)? content,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,14 +61,7 @@ abstract class $UserFormStateCopyWith<$Res> {
           UserFormState value, $Res Function(UserFormState) then) =
       _$UserFormStateCopyWithImpl<$Res, UserFormState>;
   @useResult
-  $Res call(
-      {FormEntity<String> email,
-      FormEntity<String> password,
-      FormEntity<int> age});
-
-  $FormEntityCopyWith<String, $Res> get email;
-  $FormEntityCopyWith<String, $Res> get password;
-  $FormEntityCopyWith<int, $Res> get age;
+  $Res call({Map<String, FormEntity> form});
 }
 
 /// @nodoc
@@ -92,48 +77,14 @@ class _$UserFormStateCopyWithImpl<$Res, $Val extends UserFormState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? password = null,
-    Object? age = null,
+    Object? form = null,
   }) {
     return _then(_value.copyWith(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as FormEntity<String>,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as FormEntity<String>,
-      age: null == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
-              as FormEntity<int>,
+      form: null == form
+          ? _value.form
+          : form // ignore: cast_nullable_to_non_nullable
+              as Map<String, FormEntity>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $FormEntityCopyWith<String, $Res> get email {
-    return $FormEntityCopyWith<String, $Res>(_value.email, (value) {
-      return _then(_value.copyWith(email: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $FormEntityCopyWith<String, $Res> get password {
-    return $FormEntityCopyWith<String, $Res>(_value.password, (value) {
-      return _then(_value.copyWith(password: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $FormEntityCopyWith<int, $Res> get age {
-    return $FormEntityCopyWith<int, $Res>(_value.age, (value) {
-      return _then(_value.copyWith(age: value) as $Val);
-    });
   }
 }
 
@@ -145,17 +96,7 @@ abstract class _$$ContentImplCopyWith<$Res>
       __$$ContentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FormEntity<String> email,
-      FormEntity<String> password,
-      FormEntity<int> age});
-
-  @override
-  $FormEntityCopyWith<String, $Res> get email;
-  @override
-  $FormEntityCopyWith<String, $Res> get password;
-  @override
-  $FormEntityCopyWith<int, $Res> get age;
+  $Res call({Map<String, FormEntity> form});
 }
 
 /// @nodoc
@@ -169,23 +110,13 @@ class __$$ContentImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? password = null,
-    Object? age = null,
+    Object? form = null,
   }) {
     return _then(_$ContentImpl(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as FormEntity<String>,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as FormEntity<String>,
-      age: null == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
-              as FormEntity<int>,
+      form: null == form
+          ? _value._form
+          : form // ignore: cast_nullable_to_non_nullable
+              as Map<String, FormEntity>,
     ));
   }
 }
@@ -194,23 +125,21 @@ class __$$ContentImplCopyWithImpl<$Res>
 
 class _$ContentImpl implements _Content {
   const _$ContentImpl(
-      {this.email = const FormEntity(value: ''),
-      this.password = const FormEntity(value: ''),
-      this.age = const FormEntity(value: 0)});
+      {final Map<String, FormEntity> form = UserFormMap.userFormEntity})
+      : _form = form;
 
+  final Map<String, FormEntity> _form;
   @override
   @JsonKey()
-  final FormEntity<String> email;
-  @override
-  @JsonKey()
-  final FormEntity<String> password;
-  @override
-  @JsonKey()
-  final FormEntity<int> age;
+  Map<String, FormEntity> get form {
+    if (_form is EqualUnmodifiableMapView) return _form;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_form);
+  }
 
   @override
   String toString() {
-    return 'UserFormState.content(email: $email, password: $password, age: $age)';
+    return 'UserFormState.content(form: $form)';
   }
 
   @override
@@ -218,14 +147,12 @@ class _$ContentImpl implements _Content {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ContentImpl &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.age, age) || other.age == age));
+            const DeepCollectionEquality().equals(other._form, _form));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password, age);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_form));
 
   @JsonKey(ignore: true)
   @override
@@ -236,33 +163,27 @@ class _$ContentImpl implements _Content {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FormEntity<String> email,
-            FormEntity<String> password, FormEntity<int> age)
-        content,
+    required TResult Function(Map<String, FormEntity> form) content,
   }) {
-    return content(email, password, age);
+    return content(form);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FormEntity<String> email, FormEntity<String> password,
-            FormEntity<int> age)?
-        content,
+    TResult? Function(Map<String, FormEntity> form)? content,
   }) {
-    return content?.call(email, password, age);
+    return content?.call(form);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FormEntity<String> email, FormEntity<String> password,
-            FormEntity<int> age)?
-        content,
+    TResult Function(Map<String, FormEntity> form)? content,
     required TResult orElse(),
   }) {
     if (content != null) {
-      return content(email, password, age);
+      return content(form);
     }
     return orElse();
   }
@@ -297,17 +218,10 @@ class _$ContentImpl implements _Content {
 }
 
 abstract class _Content implements UserFormState {
-  const factory _Content(
-      {final FormEntity<String> email,
-      final FormEntity<String> password,
-      final FormEntity<int> age}) = _$ContentImpl;
+  const factory _Content({final Map<String, FormEntity> form}) = _$ContentImpl;
 
   @override
-  FormEntity<String> get email;
-  @override
-  FormEntity<String> get password;
-  @override
-  FormEntity<int> get age;
+  Map<String, FormEntity> get form;
   @override
   @JsonKey(ignore: true)
   _$$ContentImplCopyWith<_$ContentImpl> get copyWith =>
