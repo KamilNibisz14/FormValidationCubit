@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_with_cubit/features/core/constant/common_form_map_key.dart';
 import 'package:form_with_cubit/features/presentation/cubit/user_form_cubit.dart';
 import 'package:form_with_cubit/features/presentation/widgets/common_form_field.dart';
 
@@ -7,6 +8,10 @@ const emailLabel = 'Email*';
 const passwordLabel = 'Password*';
 const ageLabel = 'Age*';
 const buttonText = 'Save';
+
+const emailKey = CommonFormMapKey.email;
+const passwordKey = CommonFormMapKey.password;
+const ageKey = CommonFormMapKey.age;
 
 class FormPage extends StatelessWidget {
   const FormPage({super.key});
@@ -34,19 +39,19 @@ class _Body extends StatelessWidget {
             children: [
               CommonFormField(
                 labelText: emailLabel,
-                onChange: context.read<UserFormCubit>().updateEmail,
-                errorMessage: state.email.errorMessage,
+                onChange:(value) => context.read<UserFormCubit>().updateField(value,emailKey),
+                errorMessage: state.form[emailKey]?.errorMessage,
               ),
               CommonFormField(
                 labelText: passwordLabel,
                 obscureText: true,
-                onChange: context.read<UserFormCubit>().updatePassword,
-                errorMessage: state.password.errorMessage,
+                onChange:(value) => context.read<UserFormCubit>().updateField(value,passwordKey),
+                errorMessage: state.form[passwordKey]?.errorMessage,
               ),
               CommonFormField(
                 labelText: ageLabel,
-                onChange: context.read<UserFormCubit>().updateAge,
-                errorMessage: state.age.errorMessage,
+                onChange:(value) => context.read<UserFormCubit>().updateField(value,ageKey),
+                errorMessage: state.form[ageKey]?.errorMessage,
               ),
               ElevatedButton(
                   onPressed: () => context.read<UserFormCubit>().onSave(() {

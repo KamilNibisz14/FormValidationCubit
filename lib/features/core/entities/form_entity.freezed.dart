@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FormEntity<T> {
   T get value => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  dynamic Function(String) get validation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FormEntityCopyWith<T, FormEntity<T>> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $FormEntityCopyWith<T, $Res> {
           FormEntity<T> value, $Res Function(FormEntity<T>) then) =
       _$FormEntityCopyWithImpl<T, $Res, FormEntity<T>>;
   @useResult
-  $Res call({T value, String? errorMessage});
+  $Res call(
+      {T value, String? errorMessage, dynamic Function(String) validation});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$FormEntityCopyWithImpl<T, $Res, $Val extends FormEntity<T>>
   $Res call({
     Object? value = freezed,
     Object? errorMessage = freezed,
+    Object? validation = null,
   }) {
     return _then(_value.copyWith(
       value: freezed == value
@@ -58,6 +61,10 @@ class _$FormEntityCopyWithImpl<T, $Res, $Val extends FormEntity<T>>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      validation: null == validation
+          ? _value.validation
+          : validation // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(String),
     ) as $Val);
   }
 }
@@ -70,7 +77,8 @@ abstract class _$$FormEntityImplCopyWith<T, $Res>
       __$$FormEntityImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({T value, String? errorMessage});
+  $Res call(
+      {T value, String? errorMessage, dynamic Function(String) validation});
 }
 
 /// @nodoc
@@ -86,6 +94,7 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
   $Res call({
     Object? value = freezed,
     Object? errorMessage = freezed,
+    Object? validation = null,
   }) {
     return _then(_$FormEntityImpl<T>(
       value: freezed == value
@@ -96,6 +105,10 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      validation: null == validation
+          ? _value.validation
+          : validation // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(String),
     ));
   }
 }
@@ -103,16 +116,19 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$FormEntityImpl<T> implements _FormEntity<T> {
-  const _$FormEntityImpl({required this.value, this.errorMessage});
+  const _$FormEntityImpl(
+      {required this.value, this.errorMessage, required this.validation});
 
   @override
   final T value;
   @override
   final String? errorMessage;
+  @override
+  final dynamic Function(String) validation;
 
   @override
   String toString() {
-    return 'FormEntity<$T>(value: $value, errorMessage: $errorMessage)';
+    return 'FormEntity<$T>(value: $value, errorMessage: $errorMessage, validation: $validation)';
   }
 
   @override
@@ -122,12 +138,14 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
             other is _$FormEntityImpl<T> &&
             const DeepCollectionEquality().equals(other.value, value) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.validation, validation) ||
+                other.validation == validation));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(value), errorMessage);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(value), errorMessage, validation);
 
   @JsonKey(ignore: true)
   @override
@@ -138,13 +156,17 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
 
 abstract class _FormEntity<T> implements FormEntity<T> {
   const factory _FormEntity(
-      {required final T value,
-      final String? errorMessage}) = _$FormEntityImpl<T>;
+          {required final T value,
+          final String? errorMessage,
+          required final dynamic Function(String) validation}) =
+      _$FormEntityImpl<T>;
 
   @override
   T get value;
   @override
   String? get errorMessage;
+  @override
+  dynamic Function(String) get validation;
   @override
   @JsonKey(ignore: true)
   _$$FormEntityImplCopyWith<T, _$FormEntityImpl<T>> get copyWith =>

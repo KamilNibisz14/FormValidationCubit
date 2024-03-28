@@ -3,16 +3,11 @@ part of 'user_form_cubit.dart';
 @freezed
 class UserFormState with _$UserFormState {
   const factory UserFormState.content({
-    @Default(FormEntity(value: '')) FormEntity<String> email,
-    @Default(FormEntity(value: '')) FormEntity<String> password,
-    @Default(FormEntity(value: 0)) FormEntity<int> age,
+    @Default(UserFormMap.userFormEntity) Map<String, FormEntity> form,
   }) = _Content;
 }
-
-extension UserFormtateFormValid on UserFormState {
+extension UserFormStateFormValid on UserFormState {
   bool get isFormValid {
-    return email.errorMessage == null &&
-        password.errorMessage == null &&
-        age.errorMessage == null;
+    return form.values.every((formEntity) => formEntity.errorMessage == null);
   }
 }
