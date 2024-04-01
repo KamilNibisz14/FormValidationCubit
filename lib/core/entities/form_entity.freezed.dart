@@ -17,8 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$FormEntity<T> {
   T get value => throw _privateConstructorUsedError;
+  dynamic Function(dynamic) get validation =>
+      throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
-  dynamic Function(String) get validation => throw _privateConstructorUsedError;
+  dynamic Function(String)? get parser => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FormEntityCopyWith<T, FormEntity<T>> get copyWith =>
@@ -32,7 +34,10 @@ abstract class $FormEntityCopyWith<T, $Res> {
       _$FormEntityCopyWithImpl<T, $Res, FormEntity<T>>;
   @useResult
   $Res call(
-      {T value, String? errorMessage, dynamic Function(String) validation});
+      {T value,
+      dynamic Function(dynamic) validation,
+      String? errorMessage,
+      dynamic Function(String)? parser});
 }
 
 /// @nodoc
@@ -49,22 +54,27 @@ class _$FormEntityCopyWithImpl<T, $Res, $Val extends FormEntity<T>>
   @override
   $Res call({
     Object? value = freezed,
-    Object? errorMessage = freezed,
     Object? validation = null,
+    Object? errorMessage = freezed,
+    Object? parser = freezed,
   }) {
     return _then(_value.copyWith(
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as T,
+      validation: null == validation
+          ? _value.validation
+          : validation // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(dynamic),
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      validation: null == validation
-          ? _value.validation
-          : validation // ignore: cast_nullable_to_non_nullable
-              as dynamic Function(String),
+      parser: freezed == parser
+          ? _value.parser
+          : parser // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(String)?,
     ) as $Val);
   }
 }
@@ -78,7 +88,10 @@ abstract class _$$FormEntityImplCopyWith<T, $Res>
   @override
   @useResult
   $Res call(
-      {T value, String? errorMessage, dynamic Function(String) validation});
+      {T value,
+      dynamic Function(dynamic) validation,
+      String? errorMessage,
+      dynamic Function(String)? parser});
 }
 
 /// @nodoc
@@ -93,22 +106,27 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? value = freezed,
-    Object? errorMessage = freezed,
     Object? validation = null,
+    Object? errorMessage = freezed,
+    Object? parser = freezed,
   }) {
     return _then(_$FormEntityImpl<T>(
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as T,
+      validation: null == validation
+          ? _value.validation
+          : validation // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(dynamic),
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
-      validation: null == validation
-          ? _value.validation
-          : validation // ignore: cast_nullable_to_non_nullable
-              as dynamic Function(String),
+      parser: freezed == parser
+          ? _value.parser
+          : parser // ignore: cast_nullable_to_non_nullable
+              as dynamic Function(String)?,
     ));
   }
 }
@@ -117,18 +135,23 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
 
 class _$FormEntityImpl<T> implements _FormEntity<T> {
   const _$FormEntityImpl(
-      {required this.value, this.errorMessage, required this.validation});
+      {required this.value,
+      required this.validation,
+      this.errorMessage,
+      this.parser});
 
   @override
   final T value;
   @override
+  final dynamic Function(dynamic) validation;
+  @override
   final String? errorMessage;
   @override
-  final dynamic Function(String) validation;
+  final dynamic Function(String)? parser;
 
   @override
   String toString() {
-    return 'FormEntity<$T>(value: $value, errorMessage: $errorMessage, validation: $validation)';
+    return 'FormEntity<$T>(value: $value, validation: $validation, errorMessage: $errorMessage, parser: $parser)';
   }
 
   @override
@@ -137,15 +160,20 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
         (other.runtimeType == runtimeType &&
             other is _$FormEntityImpl<T> &&
             const DeepCollectionEquality().equals(other.value, value) &&
+            (identical(other.validation, validation) ||
+                other.validation == validation) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            (identical(other.validation, validation) ||
-                other.validation == validation));
+            (identical(other.parser, parser) || other.parser == parser));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(value), errorMessage, validation);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(value),
+      validation,
+      errorMessage,
+      parser);
 
   @JsonKey(ignore: true)
   @override
@@ -156,17 +184,19 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
 
 abstract class _FormEntity<T> implements FormEntity<T> {
   const factory _FormEntity(
-          {required final T value,
-          final String? errorMessage,
-          required final dynamic Function(String) validation}) =
-      _$FormEntityImpl<T>;
+      {required final T value,
+      required final dynamic Function(dynamic) validation,
+      final String? errorMessage,
+      final dynamic Function(String)? parser}) = _$FormEntityImpl<T>;
 
   @override
   T get value;
   @override
+  dynamic Function(dynamic) get validation;
+  @override
   String? get errorMessage;
   @override
-  dynamic Function(String) get validation;
+  dynamic Function(String)? get parser;
   @override
   @JsonKey(ignore: true)
   _$$FormEntityImplCopyWith<T, _$FormEntityImpl<T>> get copyWith =>
