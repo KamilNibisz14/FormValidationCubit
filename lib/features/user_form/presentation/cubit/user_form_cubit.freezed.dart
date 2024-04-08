@@ -124,8 +124,7 @@ class __$$ContentImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ContentImpl implements _Content {
-  const _$ContentImpl(
-      {final Map<String, FormEntity> form = UserFormMap.userFormEntity})
+  const _$ContentImpl({final Map<String, FormEntity> form = const {}})
       : _form = form;
 
   final Map<String, FormEntity> _form;
