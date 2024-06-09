@@ -19,22 +19,34 @@ class UserFormCubit extends Cubit<UserFormState> {
     var formEntity = state.form[formKey];
     if (formEntity != null) {
       if (formEntity.parser != null) {
-        final parserValue = formEntity.parser!(value); // check if value id valid in parser 
+        final parserValue = formEntity.parser!(value); 
         if (parserValue == null) {
-          validateSingleFormEntity(formEntity, formKey, value); // validate sindle form 
+          validateSingleFormEntity(formEntity, formKey, value);
         } else {
-          updateFormEntity(formEntity, formKey, parserValue); 
+          validateSingleFormEntityWithUpdate(formEntity, formKey, parserValue);
         }
       } else {
-        updateFormEntity(formEntity, formKey, value);
+        validateSingleFormEntityWithUpdate(formEntity, formKey, value);
       }
     }
   }
+
 
   // update single form entity
   void updateFormEntity(
       FormEntity<dynamic> formEntity, String formKey, dynamic value) {
     final newFormEntity = formEntity.copyWith(value: value, errorMessage: null);
+    final updatedForm = Map<String, FormEntity<dynamic>>.from(state.form)
+      ..[formKey] = newFormEntity;
+    final newState = state.copyWith(form: updatedForm);
+    emit(newState);
+  }
+
+   void validateSingleFormEntityWithUpdate(
+      FormEntity<dynamic> formEntity, String formKey, dynamic value) {
+    final errorMessage = formEntity.validation(value);
+    final newFormEntity =
+        formEntity.copyWith(errorMessage: errorMessage, value: value);
     final updatedForm = Map<String, FormEntity<dynamic>>.from(state.form)
       ..[formKey] = newFormEntity;
     final newState = state.copyWith(form: updatedForm);
@@ -57,10 +69,20 @@ class UserFormCubit extends Cubit<UserFormState> {
     final Map<String, FormEntity<dynamic>> updatedForm = {};
     state.form.forEach((key, formEntity) {
       final errorMessage = formEntity.validation(formEntity.value.toString());
-      final newFormEntity = formEntity.copyWith(errorMessage: errorMessage);
+      final isValidationErrorOnSave = errorMessage != null;
+      final newFormEntity = formEntity.copyWith(errorMessage: errorMessage,isValidationErrorOnSave: isValidationErrorOnSave);
       updatedForm[key] = newFormEntity;
     });
     return state.copyWith(form: updatedForm);
+  }
+
+  void clearIsValidationErrorOnSave() {
+    final Map<String, FormEntity<dynamic>> updatedForm = {};
+    state.form.forEach((key, formEntity) {
+      final newFormEntity = formEntity.copyWith(isValidationErrorOnSave: false);
+      updatedForm[key] = newFormEntity;
+    });
+    emit(state.copyWith(form: updatedForm));
   }
 
   void onSave(Function onSuccess) {
@@ -70,6 +92,7 @@ class UserFormCubit extends Cubit<UserFormState> {
       onSuccess();
       final user = UserEntity.fromMap(state.form);
       print(user);
+      emit(newState);
     } else {
       emit(newState);
     }
