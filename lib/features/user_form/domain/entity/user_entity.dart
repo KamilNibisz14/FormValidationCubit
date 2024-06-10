@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:form_with_cubit/core/constant/common_form_map_key.dart';
 import 'package:form_with_cubit/core/entities/form_entity.dart';
 import 'package:form_with_cubit/core/validators/user_form_validator.dart';
@@ -33,6 +34,14 @@ class UserEntity with _$UserEntity {
       CommonFormMapKey.gender: FormEntity<GenderEnum>(value: user.gender, validation: UserFormValidator.alwaysValidate, key: CommonFormMapKey.age),
     };
   }
+
+  static Map<String, GlobalKey> globalKeys = {
+      CommonFormMapKey.email: GlobalKey(),
+      CommonFormMapKey.password: GlobalKey(),
+      CommonFormMapKey.age: GlobalKey(),
+      CommonFormMapKey.agreement: GlobalKey(),
+      CommonFormMapKey.gender: GlobalKey(),
+    };
   // create entiti base on form map 
   factory UserEntity.fromMap(Map<String, FormEntity<dynamic>> formMap){
     return UserEntity(

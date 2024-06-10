@@ -5,6 +5,7 @@ class CommonFormField extends HookWidget {
   const CommonFormField({
     required this.labelText,
     required this.onChange,
+    required this.onFocusedChanged,
     this.errorMessage,
     this.obscureText = false,
     this.textInputAction = TextInputAction.next,
@@ -13,6 +14,7 @@ class CommonFormField extends HookWidget {
 
   final String labelText;
   final Function(String) onChange;
+  final Function(String) onFocusedChanged;
   final String? errorMessage;
   final bool obscureText;
   final TextInputAction textInputAction;
