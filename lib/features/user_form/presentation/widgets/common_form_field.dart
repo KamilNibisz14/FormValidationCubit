@@ -19,8 +19,23 @@ class CommonFormField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final focusNode = useFocusNode();
+    final textController = useTextEditingController();
+
+    useEffect(() {
+      void handleFocusChange() {
+        if (!focusNode.hasFocus) {
+          onChange(textController.text);
+        }
+      }
+
+      focusNode.addListener(handleFocusChange);
+      return () => focusNode.removeListener(handleFocusChange);
+    }, [focusNode]);
 
     return TextField(
+      focusNode: focusNode,
+      controller: textController,
       onChanged: onChange,
       obscureText: obscureText,
       textInputAction: textInputAction,
