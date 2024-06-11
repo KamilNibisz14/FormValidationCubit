@@ -7,9 +7,11 @@ class FormEntity<T> with _$FormEntity<T> {
   const factory FormEntity({
     required String key,
     required T value,
+    required String label,
     required Function(dynamic) validation,
     String? errorMessage,
     @Default(false) bool isValidationErrorOnSave,
+    @Default(true) bool isVisible,
     Function(String)? parser,
   }) = _FormEntity<T>;
 }

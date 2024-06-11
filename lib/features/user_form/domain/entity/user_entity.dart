@@ -27,14 +27,14 @@ class UserEntity with _$UserEntity {
   // create form map from entity
   static Map<String, FormEntity<dynamic>> createUserFormMapFromUserEntity(UserEntity user) {
     return {
-      CommonFormMapKey.email: FormEntity<String>(value: user.email, validation: UserFormValidator.validateEmail, key: CommonFormMapKey.email),
-      CommonFormMapKey.password: FormEntity<String>(value: user.password, validation: UserFormValidator.validatePassword, key: CommonFormMapKey.password),
-      CommonFormMapKey.age: FormEntity<int>(value: user.age, validation: UserFormValidator.validateAge, parser: int.tryParse, key: CommonFormMapKey.age),
-      CommonFormMapKey.agreement: FormEntity<bool>(value: user.agreement, validation: UserFormValidator.validateAgreement, key: CommonFormMapKey.agreement),
-      CommonFormMapKey.gender: FormEntity<GenderEnum>(value: user.gender, validation: UserFormValidator.alwaysValidate, key: CommonFormMapKey.age),
+      CommonFormMapKey.email: FormEntity<String>(value: user.email, validation: UserFormValidator.validateEmail, key: CommonFormMapKey.email, label: 'Email*'),
+      CommonFormMapKey.password: FormEntity<String>(value: user.password, validation: UserFormValidator.validatePassword, key: CommonFormMapKey.password, label: 'Password*'),
+      CommonFormMapKey.age: FormEntity<int>(value: user.age, validation: UserFormValidator.validateAge, parser: int.tryParse, key: CommonFormMapKey.age, label: 'Age*'),
+      CommonFormMapKey.agreement: FormEntity<bool>(value: user.agreement, validation: UserFormValidator.validateAgreement, key: CommonFormMapKey.agreement, label: 'Agreement*'),
+      CommonFormMapKey.gender: FormEntity<GenderEnum>(value: user.gender, validation: UserFormValidator.alwaysValidate, key: CommonFormMapKey.age, label: 'Gender*'),
     };
   }
-
+  
   static Map<String, GlobalKey> globalKeys = {
       CommonFormMapKey.email: GlobalKey(),
       CommonFormMapKey.password: GlobalKey(),
