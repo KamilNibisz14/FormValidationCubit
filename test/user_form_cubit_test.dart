@@ -128,19 +128,4 @@ void main() {
     );
   });
 
-  group('UserFormCubit validate single form', () {
-    blocTest<UserFormCubit, UserFormState>(
-      'validate single form age',
-      build: () => UserFormCubit()..init(),
-      act: (cubit) =>
-          cubit.validateSingleFormEntity(formMap[ageKey]!, ageKey, 'a'),
-      expect: () => [
-        UserFormState.content(
-          form: updateFormEntityError(
-              ageKey, CommonValidatorErrorMessages.ageErrorParserMessage, 'a'),
-        ),
-      ],
-    );
-  });
-
 }

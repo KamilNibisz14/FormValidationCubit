@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:form_with_cubit/core/constant/common_form_map_key.dart';
 import 'package:form_with_cubit/core/entities/form_entity.dart';
 import 'package:form_with_cubit/core/validators/user_form_validator.dart';
@@ -26,13 +27,21 @@ class UserEntity with _$UserEntity {
   // create form map from entity
   static Map<String, FormEntity<dynamic>> createUserFormMapFromUserEntity(UserEntity user) {
     return {
-      CommonFormMapKey.email: FormEntity<String>(value: user.email, validation: UserFormValidator.validateEmail),
-      CommonFormMapKey.password: FormEntity<String>(value: user.password, validation: UserFormValidator.validatePassword),
-      CommonFormMapKey.age: FormEntity<int>(value: user.age, validation: UserFormValidator.validateAge, parser: int.tryParse),
-      CommonFormMapKey.agreement: FormEntity<bool>(value: user.agreement, validation: UserFormValidator.validateAgreement),
-      CommonFormMapKey.gender: FormEntity<GenderEnum>(value: user.gender, validation: UserFormValidator.alwaysValidate),
+      CommonFormMapKey.email: FormEntity<String>(value: user.email, validation: UserFormValidator.validateEmail, key: CommonFormMapKey.email),
+      CommonFormMapKey.password: FormEntity<String>(value: user.password, validation: UserFormValidator.validatePassword, key: CommonFormMapKey.password),
+      CommonFormMapKey.age: FormEntity<int>(value: user.age, validation: UserFormValidator.validateAge, parser: int.tryParse, key: CommonFormMapKey.age),
+      CommonFormMapKey.agreement: FormEntity<bool>(value: user.agreement, validation: UserFormValidator.validateAgreement, key: CommonFormMapKey.agreement),
+      CommonFormMapKey.gender: FormEntity<GenderEnum>(value: user.gender, validation: UserFormValidator.alwaysValidate, key: CommonFormMapKey.age),
     };
   }
+
+  static Map<String, GlobalKey> globalKeys = {
+      CommonFormMapKey.email: GlobalKey(),
+      CommonFormMapKey.password: GlobalKey(),
+      CommonFormMapKey.age: GlobalKey(),
+      CommonFormMapKey.agreement: GlobalKey(),
+      CommonFormMapKey.gender: GlobalKey(),
+    };
   // create entiti base on form map 
   factory UserEntity.fromMap(Map<String, FormEntity<dynamic>> formMap){
     return UserEntity(

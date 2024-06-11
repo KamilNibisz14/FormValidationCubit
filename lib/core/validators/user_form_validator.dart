@@ -21,7 +21,7 @@ abstract class UserFormValidator {
   }
 
   static String? validateAge(dynamic ageString) {
-    final int? age = int.tryParse(ageString);
+    final int? age = int.tryParse(ageString.toString());
     if (age == null) {
       return CommonValidatorErrorMessages.ageErrorParserMessage;
     }
@@ -32,7 +32,7 @@ abstract class UserFormValidator {
   }
 
   static String? validateAgreement(dynamic agreementBool) {
-    final bool? agreement = bool.tryParse(agreementBool);
+    final bool? agreement = bool.tryParse(agreementBool.toString());
     if (agreement != null && agreement == true) {
       return null;
     }

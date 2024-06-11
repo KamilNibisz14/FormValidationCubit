@@ -39,14 +39,14 @@ void main() {
     test('creates a valid instance from form map', () {
       final formMap = {
         CommonFormMapKey.email:
-            FormEntity<String>(value: 'test@example.com', validation: (_) {}),
+            FormEntity<String>(value: 'test@example.com', validation: (_) {}, key: ''),
         CommonFormMapKey.password:
-            FormEntity<String>(value: 'password123', validation: (_) {}),
-        CommonFormMapKey.age: FormEntity<int>(value: 25, validation: (_) {}),
+            FormEntity<String>(value: 'password123', validation: (_) {}, key: ''),
+        CommonFormMapKey.age: FormEntity<int>(value: 25, validation: (_) {}, key: ''),
         CommonFormMapKey.agreement:
-            FormEntity<bool>(value: true, validation: (_) {}),
+            FormEntity<bool>(value: true, validation: (_) {}, key: ''),
         CommonFormMapKey.gender: FormEntity<GenderEnum>(
-            value: GenderEnum.female, validation: (_) {}),
+            value: GenderEnum.female, validation: (_) {}, key: ''),
       };
 
       final user = UserEntity.fromMap(formMap);
