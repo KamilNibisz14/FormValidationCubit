@@ -18,10 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FormEntity<T> {
   String get key => throw _privateConstructorUsedError;
   T get value => throw _privateConstructorUsedError;
+  String get label => throw _privateConstructorUsedError;
   dynamic Function(dynamic) get validation =>
       throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   bool get isValidationErrorOnSave => throw _privateConstructorUsedError;
+  bool get isVisible => throw _privateConstructorUsedError;
   dynamic Function(String)? get parser => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,9 +40,11 @@ abstract class $FormEntityCopyWith<T, $Res> {
   $Res call(
       {String key,
       T value,
+      String label,
       dynamic Function(dynamic) validation,
       String? errorMessage,
       bool isValidationErrorOnSave,
+      bool isVisible,
       dynamic Function(String)? parser});
 }
 
@@ -59,9 +63,11 @@ class _$FormEntityCopyWithImpl<T, $Res, $Val extends FormEntity<T>>
   $Res call({
     Object? key = null,
     Object? value = freezed,
+    Object? label = null,
     Object? validation = null,
     Object? errorMessage = freezed,
     Object? isValidationErrorOnSave = null,
+    Object? isVisible = null,
     Object? parser = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,6 +79,10 @@ class _$FormEntityCopyWithImpl<T, $Res, $Val extends FormEntity<T>>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as T,
+      label: null == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
       validation: null == validation
           ? _value.validation
           : validation // ignore: cast_nullable_to_non_nullable
@@ -84,6 +94,10 @@ class _$FormEntityCopyWithImpl<T, $Res, $Val extends FormEntity<T>>
       isValidationErrorOnSave: null == isValidationErrorOnSave
           ? _value.isValidationErrorOnSave
           : isValidationErrorOnSave // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isVisible: null == isVisible
+          ? _value.isVisible
+          : isVisible // ignore: cast_nullable_to_non_nullable
               as bool,
       parser: freezed == parser
           ? _value.parser
@@ -104,9 +118,11 @@ abstract class _$$FormEntityImplCopyWith<T, $Res>
   $Res call(
       {String key,
       T value,
+      String label,
       dynamic Function(dynamic) validation,
       String? errorMessage,
       bool isValidationErrorOnSave,
+      bool isVisible,
       dynamic Function(String)? parser});
 }
 
@@ -123,9 +139,11 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
   $Res call({
     Object? key = null,
     Object? value = freezed,
+    Object? label = null,
     Object? validation = null,
     Object? errorMessage = freezed,
     Object? isValidationErrorOnSave = null,
+    Object? isVisible = null,
     Object? parser = freezed,
   }) {
     return _then(_$FormEntityImpl<T>(
@@ -137,6 +155,10 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as T,
+      label: null == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String,
       validation: null == validation
           ? _value.validation
           : validation // ignore: cast_nullable_to_non_nullable
@@ -148,6 +170,10 @@ class __$$FormEntityImplCopyWithImpl<T, $Res>
       isValidationErrorOnSave: null == isValidationErrorOnSave
           ? _value.isValidationErrorOnSave
           : isValidationErrorOnSave // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isVisible: null == isVisible
+          ? _value.isVisible
+          : isVisible // ignore: cast_nullable_to_non_nullable
               as bool,
       parser: freezed == parser
           ? _value.parser
@@ -163,15 +189,19 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
   const _$FormEntityImpl(
       {required this.key,
       required this.value,
+      required this.label,
       required this.validation,
       this.errorMessage,
       this.isValidationErrorOnSave = false,
+      this.isVisible = true,
       this.parser});
 
   @override
   final String key;
   @override
   final T value;
+  @override
+  final String label;
   @override
   final dynamic Function(dynamic) validation;
   @override
@@ -180,11 +210,14 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
   @JsonKey()
   final bool isValidationErrorOnSave;
   @override
+  @JsonKey()
+  final bool isVisible;
+  @override
   final dynamic Function(String)? parser;
 
   @override
   String toString() {
-    return 'FormEntity<$T>(key: $key, value: $value, validation: $validation, errorMessage: $errorMessage, isValidationErrorOnSave: $isValidationErrorOnSave, parser: $parser)';
+    return 'FormEntity<$T>(key: $key, value: $value, label: $label, validation: $validation, errorMessage: $errorMessage, isValidationErrorOnSave: $isValidationErrorOnSave, isVisible: $isVisible, parser: $parser)';
   }
 
   @override
@@ -194,6 +227,7 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
             other is _$FormEntityImpl<T> &&
             (identical(other.key, key) || other.key == key) &&
             const DeepCollectionEquality().equals(other.value, value) &&
+            (identical(other.label, label) || other.label == label) &&
             (identical(other.validation, validation) ||
                 other.validation == validation) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -201,6 +235,8 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
             (identical(
                     other.isValidationErrorOnSave, isValidationErrorOnSave) ||
                 other.isValidationErrorOnSave == isValidationErrorOnSave) &&
+            (identical(other.isVisible, isVisible) ||
+                other.isVisible == isVisible) &&
             (identical(other.parser, parser) || other.parser == parser));
   }
 
@@ -209,9 +245,11 @@ class _$FormEntityImpl<T> implements _FormEntity<T> {
       runtimeType,
       key,
       const DeepCollectionEquality().hash(value),
+      label,
       validation,
       errorMessage,
       isValidationErrorOnSave,
+      isVisible,
       parser);
 
   @JsonKey(ignore: true)
@@ -225,9 +263,11 @@ abstract class _FormEntity<T> implements FormEntity<T> {
   const factory _FormEntity(
       {required final String key,
       required final T value,
+      required final String label,
       required final dynamic Function(dynamic) validation,
       final String? errorMessage,
       final bool isValidationErrorOnSave,
+      final bool isVisible,
       final dynamic Function(String)? parser}) = _$FormEntityImpl<T>;
 
   @override
@@ -235,11 +275,15 @@ abstract class _FormEntity<T> implements FormEntity<T> {
   @override
   T get value;
   @override
+  String get label;
+  @override
   dynamic Function(dynamic) get validation;
   @override
   String? get errorMessage;
   @override
   bool get isValidationErrorOnSave;
+  @override
+  bool get isVisible;
   @override
   dynamic Function(String)? get parser;
   @override

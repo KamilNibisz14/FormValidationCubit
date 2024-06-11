@@ -10,16 +10,28 @@ part 'user_form_cubit.freezed.dart';
 class UserFormCubit extends Cubit<UserFormState> {
   UserFormCubit() : super(const UserFormState.content());
 
-  void init(){
+  void init() {
     final user = UserEntity.createNew();
-    emit(UserFormState.content(form: UserEntity.createUserFormMapFromUserEntity(user)));
+    emit(UserFormState.content(
+        form: UserEntity.createUserFormMapFromUserEntity(user)));
+  }
+
+  void search(String value) {
+    final Map<String, FormEntity<dynamic>> updatedForm = {};
+    state.form.forEach((key, formEntity) {
+      final isVisible =
+          formEntity.label.toLowerCase().contains(value.toLowerCase());
+      final newFormEntity = formEntity.copyWith(isVisible: isVisible);
+      updatedForm[key] = newFormEntity;
+    });
+    emit(state.copyWith(form: updatedForm));
   }
 
   void updateField(dynamic value, String formKey) {
     var formEntity = state.form[formKey];
     if (formEntity != null) {
       if (formEntity.parser != null) {
-        final parserValue = formEntity.parser!(value); 
+        final parserValue = formEntity.parser!(value);
         if (parserValue == null) {
           _validateSingleFormEntity(formEntity, formKey, value);
         } else {
@@ -33,12 +45,12 @@ class UserFormCubit extends Cubit<UserFormState> {
 
   void onFocusedChanged(dynamic value, String formKey) {
     var formEntity = state.form[formKey];
-    if(formEntity != null){
-      _validateSingleFormEntity(formEntity,formKey,value);
+    if (formEntity != null) {
+      _validateSingleFormEntity(formEntity, formKey, value);
     }
   }
 
-    void clearIsValidationErrorOnSave() {
+  void clearIsValidationErrorOnSave() {
     final Map<String, FormEntity<dynamic>> updatedForm = {};
     state.form.forEach((key, formEntity) {
       final newFormEntity = formEntity.copyWith(isValidationErrorOnSave: false);
@@ -60,12 +72,16 @@ class UserFormCubit extends Cubit<UserFormState> {
     }
   }
 
-    UserFormState _validateAllForm() {
+  UserFormState _validateAllForm() {
     final Map<String, FormEntity<dynamic>> updatedForm = {};
     state.form.forEach((key, formEntity) {
       final errorMessage = formEntity.validation(formEntity.value.toString());
       final isValidationErrorOnSave = errorMessage != null;
-      final newFormEntity = formEntity.copyWith(errorMessage: errorMessage,isValidationErrorOnSave: isValidationErrorOnSave);
+      final newFormEntity = formEntity.copyWith(
+          errorMessage: errorMessage,
+          isValidationErrorOnSave: isValidationErrorOnSave,
+          isVisible: true,
+          );
       updatedForm[key] = newFormEntity;
     });
     return state.copyWith(form: updatedForm);

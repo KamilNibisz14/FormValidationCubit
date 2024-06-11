@@ -3,21 +3,23 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CommonFormField extends HookWidget {
   const CommonFormField({
-    required this.labelText,
     required this.onChange,
     required this.onFocusedChanged,
+    this.isVisible,
     this.errorMessage,
     this.obscureText = false,
+    this.labelText,
     this.textInputAction = TextInputAction.next,
     super.key,
   });
 
-  final String labelText;
+  final String? labelText;
   final Function(String) onChange;
   final Function(String) onFocusedChanged;
   final String? errorMessage;
   final bool obscureText;
   final TextInputAction textInputAction;
+  final bool? isVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class CommonFormField extends HookWidget {
       return () => focusNode.removeListener(handleFocusChange);
     }, [focusNode]);
 
-    return TextField(
+    return isVisible ==true? TextField(
       focusNode: focusNode,
       controller: textController,
       onChanged: onChange,
@@ -45,6 +47,6 @@ class CommonFormField extends HookWidget {
         labelText: labelText,
         errorText: errorMessage,
       ),
-    );
+    ):const SizedBox.shrink();
   }
 }
